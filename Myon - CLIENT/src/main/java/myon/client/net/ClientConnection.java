@@ -4,7 +4,8 @@ import insoft.openmanager.message.ClientPacket;
 import insoft.openmanager.message.Message;
 
 import java.io.IOException;
-import java.net.Socket;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
@@ -22,29 +23,33 @@ public class ClientConnection extends Thread {
 	
 	public ClientConnection(String ip, int port) {
 		
-		Socket socket = null;
-		
 		try {
-			socket = new Socket(ip, port);
-			socketChannel = socket.getChannel();
 			
-			selector = Selector.open();
-			socketChannel.register(selector, SelectionKey.OP_READ);
+			SocketAddress addr = new InetSocketAddress(ip, port);
+			socketChannel = SocketChannel.open(addr);
 			socketChannel.configureBlocking(false);
+			socketChannel.socket().setSendBufferSize(1 * 1024);
+			socketChannel.socket().setReceiveBufferSize(1 * 1024);
+			socketChannel.socket().setTcpNoDelay(true);
+			selector = Selector.open();
 			socketChannel.finishConnect();
+			socketChannel.register(selector, SelectionKey.OP_READ);
 			
 			start();
 			
 		} catch(Exception e) {
 			logger.error(e.toString());
 			logger.trace("", e);
+			e.printStackTrace();
 		}
 		
 	}
 	
 	public void write(Message writeMsg) throws Exception  {
+
 		ClientPacket clientPacket = new ClientPacket();
 		clientPacket.writeClientPacket(socketChannel, writeMsg);
+		
 	}
 	
 	public void read() throws Exception {
@@ -52,7 +57,7 @@ public class ClientConnection extends Thread {
 		ClientPacket clientPacket = new ClientPacket();
 		Message readMsg = clientPacket.readClientPacket(socketChannel);
 		rspQueue.add(readMsg);
-		
+
 	}
 	
 	public void run() {
@@ -82,6 +87,7 @@ public class ClientConnection extends Thread {
 					} catch(Exception e) {
 						logger.error(e.toString());
 						logger.trace("", e);
+						e.printStackTrace();
 					}
 				}
 				

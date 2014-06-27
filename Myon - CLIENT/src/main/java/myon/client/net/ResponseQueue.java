@@ -50,7 +50,9 @@ public class ResponseQueue extends Thread {
 			}
 			
 			try {
-				objWait.wait();
+				synchronized (objWait) {
+					objWait.wait();
+				}
 			} catch (InterruptedException e) {}
 			
 		}

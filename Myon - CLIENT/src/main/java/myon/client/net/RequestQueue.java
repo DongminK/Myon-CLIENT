@@ -21,7 +21,6 @@ public class RequestQueue extends Thread {
 	
 	public void add(Message rspMsg) {
 		quRequeset.add(rspMsg);
-		
 		synchronized (objWait) {
 			objWait.notifyAll();
 		}
@@ -39,7 +38,9 @@ public class RequestQueue extends Thread {
 			}
 			
 			try {
-				objWait.wait();
+				synchronized (objWait) {
+					objWait.wait();
+				}
 			} catch (InterruptedException e) {}
 			
 		}
