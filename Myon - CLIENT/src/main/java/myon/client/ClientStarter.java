@@ -28,9 +28,35 @@ public class ClientStarter {
 
 		ClientStarter starter = new ClientStarter();
 		//starter.loginDmk();
-				starter.loginNmp();
+		//starter.loginSwk();
+		starter.loginNmp();
+		//starter.loginDjs();
 	}
 
+	public void loginDjs() {
+		MyonMain main = new MyonMain();
+		main.myonStart();
+
+		LoginUser loginUser = new LoginUser();
+		loginUser.setUserId("djs");
+		loginUser.setUserName("심동진");
+		loginUser.setUserEmail("djshim@in-soft.co.kr");
+
+		UIManager.getInstance().setLoginUser(loginUser);
+	}
+	
+	public void loginSwk() {
+		MyonMain main = new MyonMain();
+		main.myonStart();
+
+		LoginUser loginUser = new LoginUser();
+		loginUser.setUserId("swk");
+		loginUser.setUserName("김상우");
+		loginUser.setUserEmail("swkim@in-soft.co.kr");
+
+		UIManager.getInstance().setLoginUser(loginUser);
+	}
+	
 	public void loginDmk() {
 		MyonMain main = new MyonMain();
 		main.myonStart();

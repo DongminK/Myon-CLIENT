@@ -38,7 +38,7 @@ public class SendMessage extends ClientTask {
 		
 		LoginUser loginUser = UIManager.getInstance().getLoginUser();
 		
-		String userId = loginUser.getUserName();
+		String userId = loginUser.getUserId();
 		String userName = loginUser.getUserName();
 		
 		Message msg = new Message("SEND_MESSAGE");

@@ -14,7 +14,6 @@ abstract public class MyonUI {
 	protected MyonUI() {
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setTitle(Version.version + " - " + getTitle());
-		mainFrame.setVisible(true);
 	}
 	
 	public void setUIIndex(int uiIndex) {
