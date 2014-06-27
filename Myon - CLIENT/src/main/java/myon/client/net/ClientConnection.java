@@ -20,11 +20,11 @@ public class ClientConnection extends Thread {
 	private SocketChannel socketChannel = null;
 	private Selector selector = null;
 	private ResponseQueue rspQueue = ResponseQueue.getInstance();
-	
+
 	public ClientConnection(String ip, int port) {
-		
+
 		try {
-			
+
 			SocketAddress addr = new InetSocketAddress(ip, port);
 			socketChannel = SocketChannel.open(addr);
 			socketChannel.configureBlocking(false);
@@ -34,67 +34,80 @@ public class ClientConnection extends Thread {
 			selector = Selector.open();
 			socketChannel.finishConnect();
 			socketChannel.register(selector, SelectionKey.OP_READ);
-			
+
 			start();
-			
+
 		} catch(Exception e) {
 			logger.error(e.toString());
 			logger.trace("", e);
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void write(Message writeMsg) throws Exception  {
 
 		ClientPacket clientPacket = new ClientPacket();
 		clientPacket.writeClientPacket(socketChannel, writeMsg);
-		
+
 	}
-	
+
 	public void read() throws Exception {
-		
+
 		ClientPacket clientPacket = new ClientPacket();
 		Message readMsg = clientPacket.readClientPacket(socketChannel);
 		rspQueue.add(readMsg);
 
 	}
-	
+
 	public void run() {
-		
+
 		while(true) {
-			
+
 			try {
 				selector.select(10);
 			} catch (IOException e) {}
-			
+
 			Iterator<SelectionKey> iterSelectionKey = selector.selectedKeys().iterator();
-				
+
 			while(iterSelectionKey.hasNext()) {
-				
+
 				SelectionKey selectionKey = iterSelectionKey.next();
-				
+
 				if (selectionKey.isReadable()) {
-				
+
 					SocketChannel channel = (SocketChannel) selectionKey.channel();
-					
+
 					try {
-						
+
 						ClientPacket clientPacket = new ClientPacket();
 						Message readMsg = clientPacket.readClientPacket(channel);
 						rspQueue.add(readMsg);
-						
+
 					} catch(Exception e) {
 						logger.error(e.toString());
 						logger.trace("", e);
 						e.printStackTrace();
 					}
 				}
-				
+
 				iterSelectionKey.remove();
 			}
-			
+
 		}
 	}
-	
+
+	public void close() {
+
+		if (socketChannel != null)
+			try {
+				socketChannel.close();
+			} catch (IOException e) {}
+
+		if (selector != null)
+			try {
+				selector.close();
+			} catch (IOException e) {}
+	}
+
 }

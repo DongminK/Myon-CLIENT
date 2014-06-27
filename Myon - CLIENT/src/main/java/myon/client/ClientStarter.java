@@ -27,8 +27,8 @@ public class ClientStarter {
 		ConnectManager.getInstance();
 
 		ClientStarter starter = new ClientStarter();
-		starter.loginDmk();
-		//		starter.loginNmp();
+		//starter.loginDmk();
+				starter.loginNmp();
 	}
 
 	public void loginDmk() {

@@ -19,8 +19,11 @@ public class ClientTaskManager {
 	}
 	
 	private void initalize() {
-		mapTask.put("GET_USER", new GetUser());
-		mapTask.put("SEND_MESSAGE", new SendMessage());
+		GetUser getUser = new GetUser();
+		SendMessage sendMsg = new SendMessage();
+		
+		mapTask.put(getUser.getName(), getUser);
+		mapTask.put(sendMsg.getName(), sendMsg);
 	}
 	
 	public ClientTask getTask(String msgName) {

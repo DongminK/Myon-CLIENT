@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import myon.client.common.LoginUser;
 import myon.client.ui.chat.ChatMain;
+import myon.client.ui.login.LoginMain;
 
 public class UIManager {
 
@@ -15,7 +16,10 @@ public class UIManager {
 	private UIManager() {}
 	
 	static {
+		LoginMain loginMain = new LoginMain();
 		ChatMain chatMain = new ChatMain();
+		
+		mapMyonUI.put(loginMain.getTitle(), loginMain);
 		mapMyonUI.put(chatMain.getTitle(), chatMain);
 	}
 	
