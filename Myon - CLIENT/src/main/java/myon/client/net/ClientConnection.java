@@ -20,7 +20,7 @@ public class ClientConnection extends Thread {
 	private SocketChannel socketChannel = null;
 	private Selector selector = null;
 	private ResponseQueue rspQueue = ResponseQueue.getInstance();
-
+	
 	public ClientConnection(String ip, int port) {
 
 		try {
@@ -47,6 +47,7 @@ public class ClientConnection extends Thread {
 
 	public void write(Message writeMsg) throws Exception  {
 
+		writeMsg.setInteger("session_id", ConnectManager.getInstance().getSessionId());
 		ClientPacket clientPacket = new ClientPacket();
 		clientPacket.writeClientPacket(socketChannel, writeMsg);
 
@@ -109,5 +110,6 @@ public class ClientConnection extends Thread {
 				selector.close();
 			} catch (IOException e) {}
 	}
+	
 
 }

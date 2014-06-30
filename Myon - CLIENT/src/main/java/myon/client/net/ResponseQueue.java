@@ -43,6 +43,8 @@ public class ResponseQueue extends Thread {
 		
 			while((quMsg = quResponse.poll()) != null) {
 				
+				ConnectManager.getInstance().setSessionId(quMsg);
+				
 				ClientTask task = taskManager.getTask(quMsg.getMessageName());
 				task.setTask(quMsg);
 				executor.execute(task);
