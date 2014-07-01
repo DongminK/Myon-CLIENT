@@ -17,6 +17,7 @@ import javax.swing.text.DefaultCaret;
 import myon.client.net.RequestQueue;
 import myon.client.task.impl.SendMessage;
 import myon.client.ui.MyonUI;
+import myon.client.ui.UINames;
 
 public class ChatMain extends MyonUI implements ActionListener {
 
@@ -27,7 +28,7 @@ public class ChatMain extends MyonUI implements ActionListener {
 	@Override
 	public String getTitle() {
 		// TODO Auto-generated method stub
-		return "Chat";
+		return UINames.CHAT;
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package myon.client.task.impl;
 import insoft.openmanager.message.Message;
 import myon.client.common.LoginUser;
 import myon.client.task.ClientTask;
+import myon.client.task.TaskNames;
 import myon.client.ui.MyonUI;
 import myon.client.ui.UIManager;
 
@@ -13,7 +14,7 @@ public class SendMessage extends ClientTask {
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "SEND_MESSAGE";
+		return TaskNames.SEND_MESSAGE;
 	}
 
 	@Override

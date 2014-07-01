@@ -1,13 +1,14 @@
 package myon.client.task.impl;
 
 import myon.client.task.ClientTask;
+import myon.client.task.TaskNames;
 
 public class GetUser extends ClientTask {
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return "GET_USER";
+		return TaskNames.GET_USER;
 	}
 	
 	@Override

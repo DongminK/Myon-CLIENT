@@ -7,8 +7,8 @@ public class MyonMain {
 	
 	public void myonStart() {
 		
-		MyonUI chatUI = uiManager.createMyonUI("Chat");
-		chatUI.draw();
+		MyonUI loginUI = uiManager.createMyonUI(UINames.LOGIN);
+		loginUI.draw();
 		
 	}
 }

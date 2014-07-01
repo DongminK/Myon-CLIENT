@@ -24,15 +24,21 @@ public class ClientStarter {
 		ClientConfig.IP = "192.168.1.106";
 		ClientConfig.PORT = 7777;
 
-		ConnectManager.getInstance();
+		//ConnectManager.getInstance();
 
 		ClientStarter starter = new ClientStarter();
 		//starter.loginDmk();
 		//starter.loginSwk();
-		starter.loginNmp();
+		//starter.loginNmp();
 		//starter.loginDjs();
+		starter.uiTest();
 	}
 
+	public void uiTest() {
+		MyonMain main = new MyonMain();
+		main.myonStart();
+	}
+	
 	public void loginDjs() {
 		MyonMain main = new MyonMain();
 		main.myonStart();

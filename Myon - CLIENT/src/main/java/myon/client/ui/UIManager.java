@@ -16,11 +16,8 @@ public class UIManager {
 	private UIManager() {}
 	
 	static {
-		LoginMain loginMain = new LoginMain();
-		ChatMain chatMain = new ChatMain();
-		
-		mapMyonUI.put(loginMain.getTitle(), loginMain);
-		mapMyonUI.put(chatMain.getTitle(), chatMain);
+		mapMyonUI.put(UINames.LOGIN, new LoginMain());
+		mapMyonUI.put(UINames.CHAT, new ChatMain());
 	}
 	
 	public static UIManager getInstance() {
